@@ -1,0 +1,23 @@
+This is where you put your Current Options Records to Upload them to TradeVault.,,,,,,,
+,,,,,,,
+Make sure to enter Buy or Sell and Put or Call for proper recording.,,,,,,,
+"If there is no Close Date, it will be recorded as an open contract.",,,,,,,
+"If you originally recorded the Open Entry and Close Entry separately, you need to combine them here.",,,,,,,
+"Only enter the Per Contract Broker Fee, the Open and Closed Contacts will be tallied up for the total.",,,,,,,
+"If you previously recorded your Options Trades with only some of them closed, separate open and closed contracts here.",,,,,,,
+Start on Row 15,,,,,,,
+,,,,,,,
+Option Contracts Holdings,,,,,,,
+Ticker,# of Contracts,Buy/Sell,Put/Call,Premium/Share,Date Opened,Exp. Date,Close Date
+,,,,,,,
+,,,,,,,
+,,,,,,,
+CRWV,5,sell,put,$4.75,2/2/26,4/17/2026,
+APLD,5,sell,put,$2.15,2/3/26,4/17/2026,
+CRWV,5,sell,put,$5.25,2/3/26,4/17/2026,
+CRWV,5,sell,put,$10.05,2/4/26,4/17/2026,
+Nvda ,1,sell,put,$1.35,12/18/24,1/10/2025,1/10/25
+UAA,4,sell,put,$0.25,1/7/25,1/17/2025,1/17/25
+UAA,1,sell,call,$0.22,1/7/25,1/17/2025,1/17/25
+Oxy,1,sell,put,$0.81,12/16/24,1/24/2025,1/24/25
+Oxy,1,sell,put,$0.91,12/16/24,1/24/2025,1/24/25
