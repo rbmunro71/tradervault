@@ -1,0 +1,9 @@
+This is where you put your Stock Holdings and History to upload them to TraderVault.,,,,,,,
+,,,,,,,
+Leave Date Sold and Sell Price blank for open positions — they will be added to your Holdings.,,,,,,,
+Fill in Date Sold and Sell Price for closed trades — they will be added to your History.,,,,,,,
+Use MM/DD/YYYY format for all dates.,,,,,,,
+,,,,,,,
+Ticker,Shares,Avg Cost/Share,Date Bought,Date Sold,Sell Price,Notes
+AAPL,10,172.50,01/15/2024,,,Example open position
+MSFT,5,380.00,03/22/2023,11/01/2023,420.00,Example closed trade

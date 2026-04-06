@@ -58,6 +58,7 @@ interface StoreState {
 
   // Batch import
   importOptionsBatch: (accountId: string, items: Array<{ option: Omit<TradeOption, 'id'>; closedTrade?: Omit<ClosedTrade, 'id'> }>) => void;
+  importStocksBatch: (accountId: string, items: Array<{ stock?: Omit<Stock, 'id'>; closedTrade?: Omit<ClosedTrade, 'id'> }>) => void;
 
   // Computed
   getTotalPortfolioValue: () => number;
@@ -231,6 +232,17 @@ export const useStore = create<StoreState>((set, get) => ({
     }
     set(state => ({
       options: { ...state.options, [accountId]: db.getOptions(accountId) },
+      closedTrades: { ...state.closedTrades, [accountId]: db.getClosedTrades(accountId) },
+    }));
+  },
+
+  importStocksBatch: (accountId, items) => {
+    for (const { stock, closedTrade } of items) {
+      if (stock) db.addStock(stock);
+      if (closedTrade) db.addClosedTrade(closedTrade);
+    }
+    set(state => ({
+      stocks: { ...state.stocks, [accountId]: db.getStocks(accountId) },
       closedTrades: { ...state.closedTrades, [accountId]: db.getClosedTrades(accountId) },
     }));
   },
