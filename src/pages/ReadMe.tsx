@@ -84,6 +84,7 @@ export default function ReadMe() {
               <tr><td># of Contracts</td><td>Yes</td><td>Number of contracts (1 contract = 100 shares)</td></tr>
               <tr><td>Buy/Sell</td><td>Yes</td><td>Must be BUY or SELL</td></tr>
               <tr><td>Put/Call</td><td>Yes</td><td>Must be PUT or CALL</td></tr>
+              <tr><td>Strike Price</td><td>Yes</td><td>Strike price of the contract (no commas)</td></tr>
               <tr><td>Premium/Share</td><td>Yes</td><td>Per-share premium (no commas)</td></tr>
               <tr><td>Date Opened</td><td>Yes</td><td>MM/DD/YYYY</td></tr>
               <tr><td>Exp. Date</td><td>Yes</td><td>MM/DD/YYYY</td></tr>
@@ -101,7 +102,6 @@ export default function ReadMe() {
           <ul>
             <li>All data is stored <strong>locally on your device</strong> — nothing is sent to a server.</li>
             <li>Use the <strong>ROI Calculator</strong> to estimate annualized return on a potential options trade before entering it.</li>
-            <li>After importing options via CSV, the strike price will be set to 0 — tap <strong>Edit</strong> on each position to update it.</li>
             <li>If you originally recorded open and close entries separately in your spreadsheet, combine them into a single row before importing.</li>
             <li>Clearing your browser cache or app data will erase all stored records.</li>
           </ul>

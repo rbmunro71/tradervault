@@ -12,6 +12,7 @@ interface ImportRow {
   contracts: number;
   direction: 'BUY' | 'SELL';
   option_type: 'CALL' | 'PUT';
+  strike_price: number;
   premium_paid: number;
   date_opened: string;
   expiration_date: string;
@@ -54,14 +55,15 @@ function parseCsvImport(text: string): ImportRow[] {
     const contracts = parseInt(cols[1]);
     const direction: 'BUY' | 'SELL' = cols[2]?.toLowerCase() === 'buy' ? 'BUY' : 'SELL';
     const option_type: 'CALL' | 'PUT' = cols[3]?.toLowerCase() === 'call' ? 'CALL' : 'PUT';
-    const premium_paid = parseFloat((cols[4] ?? '').replace(/[$\s]/g, ''));
-    const date_opened = parseImportDate(cols[5] ?? '');
-    const expiration_date = parseImportDate(cols[6] ?? '');
-    const date_closed = cols[7]?.trim() ? parseImportDate(cols[7]) : undefined;
+    const strike_price = parseFloat((cols[4] ?? '').replace(/[$\s]/g, '')) || 0;
+    const premium_paid = parseFloat((cols[5] ?? '').replace(/[$\s]/g, ''));
+    const date_opened = parseImportDate(cols[6] ?? '');
+    const expiration_date = parseImportDate(cols[7] ?? '');
+    const date_closed = cols[8]?.trim() ? parseImportDate(cols[8]) : undefined;
 
     if (!symbol || isNaN(contracts) || contracts <= 0 || isNaN(premium_paid)) continue;
 
-    rows.push({ symbol, contracts, direction, option_type, premium_paid, date_opened, expiration_date, date_closed });
+    rows.push({ symbol, contracts, direction, option_type, strike_price, premium_paid, date_opened, expiration_date, date_closed });
   }
   return rows;
 }
@@ -120,13 +122,13 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
         symbol: r.symbol,
         option_type: r.option_type,
         direction: r.direction,
-        strike_price: 0,
+        strike_price: r.strike_price,
         contracts: r.contracts,
         premium_paid: r.premium_paid,
         expiration_date: r.expiration_date,
         date_opened: r.date_opened,
         total_cost: totalCost,
-        notes: 'Imported via CSV — strike price unknown, please edit to update.',
+        notes: 'Imported via CSV.',
         ...(r.date_closed ? { date_closed: r.date_closed, premium_closed: 0 } : {}),
       };
 
@@ -297,13 +299,14 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                       <>
                         <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Open Positions ({openRows.length})</div>
                         <table className="import-table">
-                          <thead><tr><th>Ticker</th><th>Dir</th><th>Type</th><th>Contracts</th><th>Premium</th><th>Opened</th><th>Exp.</th></tr></thead>
+                          <thead><tr><th>Ticker</th><th>Dir</th><th>Type</th><th>Strike</th><th>Contracts</th><th>Premium</th><th>Opened</th><th>Exp.</th></tr></thead>
                           <tbody>
                             {openRows.map((r, i) => (
                               <tr key={i}>
                                 <td>{r.symbol}</td>
                                 <td>{r.direction}</td>
                                 <td>{r.option_type}</td>
+                                <td>{r.strike_price > 0 ? formatCurrency(r.strike_price) : '—'}</td>
                                 <td>{r.contracts}</td>
                                 <td>{formatCurrency(r.premium_paid)}</td>
                                 <td>{r.date_opened}</td>
@@ -319,7 +322,7 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                       <>
                         <div style={{ fontWeight: 700, fontSize: 13, margin: '12px 0 6px' }}>History / Closed ({closedRows.length})</div>
                         <table className="import-table">
-                          <thead><tr><th>Ticker</th><th>Dir</th><th>Type</th><th>Contracts</th><th>Premium</th><th>Opened</th><th>Closed</th><th>P&L</th></tr></thead>
+                          <thead><tr><th>Ticker</th><th>Dir</th><th>Type</th><th>Strike</th><th>Contracts</th><th>Premium</th><th>Opened</th><th>Closed</th><th>P&L</th></tr></thead>
                           <tbody>
                             {closedRows.map((r, i) => {
                               const pl = r.direction === 'SELL'
@@ -330,6 +333,7 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                                   <td>{r.symbol}</td>
                                   <td>{r.direction}</td>
                                   <td>{r.option_type}</td>
+                                  <td>{r.strike_price > 0 ? formatCurrency(r.strike_price) : '—'}</td>
                                   <td>{r.contracts}</td>
                                   <td>{formatCurrency(r.premium_paid)}</td>
                                   <td>{r.date_opened}</td>
