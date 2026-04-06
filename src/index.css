@@ -678,6 +678,7 @@ button, a.btn-primary, a.btn-ghost, a.btn-success, a.btn-danger, a.btn-warning, 
   font-size: 11px;
   color: #9e9e9e;
 }
+.opt-r3-dates { display: flex; gap: 14px; }
 .opt-imported-tag { font-size: 10px; color: #bdbdbd; font-style: italic; margin-top: 3px; }
 .opt-r3-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
 .opt-r3-btns { display: flex; gap: 4px; padding-left: 28px; }

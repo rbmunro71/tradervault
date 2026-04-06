@@ -263,10 +263,12 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
               <div className="ostat"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
             </div>
             <div className="option-row3">
-              <span>Opened: {opt.date_opened}</span>
-              <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
-                Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
-              </span>
+              <div className="opt-r3-dates">
+                <span>Opened: {opt.date_opened}</span>
+                <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
+                  Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
+                </span>
+              </div>
               {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
               {customNote && <span className="holding-notes">{customNote}</span>}
               <div className="opt-r3-actions">
