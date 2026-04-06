@@ -263,15 +263,17 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
               <div className="ostat"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
             </div>
             <div className="option-row3">
-              {/* Row 1: dates side by side */}
-              <span>Opened: {opt.date_opened}</span>
-              <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
-                Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
-              </span>
-
-              {/* Row 2: empty col1, buttons + current value in col2 indented past "Exp: " */}
-              <span />
-              <div className="opt-r3-actions">
+              <div className="opt-r3-dates">
+                <span>Opened: {opt.date_opened}</span>
+                <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
+                  Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
+                </span>
+              </div>
+              <div className="opt-r3-bottom">
+                <div className="opt-r3-note">
+                  {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
+                  {customNote && <span className="holding-notes">{customNote}</span>}
+                </div>
                 <div className="opt-r3-btns">
                   <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
                   <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
@@ -284,13 +286,6 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                   </span>
                 </div>
               </div>
-
-              {/* Row 3: imported tag spans full width */}
-              {(isImported || customNote) && (
-                <span className="opt-imported-tag" style={{ gridColumn: '1 / -1' }}>
-                  {isImported ? 'Imported via CSV' : customNote}
-                </span>
-              )}
             </div>
           </div>
         );
