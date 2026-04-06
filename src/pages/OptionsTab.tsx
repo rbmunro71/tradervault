@@ -279,7 +279,7 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                   <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
                   <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
                 </div>
-                <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`} style={{ marginLeft: 24 }}>
+                <span className={`opt-r3-val opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
                   {currentValue !== null ? formatCurrency(currentValue) : '—'}
                 </span>
               </div>

@@ -679,9 +679,10 @@ button, a.btn-primary, a.btn-ghost, a.btn-success, a.btn-danger, a.btn-warning, 
   color: #9e9e9e;
 }
 .opt-r3-dates { display: flex; gap: 14px; }
-.opt-r3-bottom { display: flex; align-items: flex-end; gap: 6px; flex-wrap: nowrap; }
+.opt-r3-bottom { display: flex; align-items: flex-end; flex-wrap: nowrap; }
 .opt-r3-note { flex: 1; font-size: 10px; color: #bdbdbd; font-style: italic; }
-.opt-r3-btns { display: flex; gap: 4px; }
+.opt-r3-btns { flex: 1; display: flex; gap: 4px; justify-content: center; }
+.opt-r3-val { flex: 1; text-align: right; }
 .opt-r3-cv { display: flex; flex-direction: column; align-items: center; }
 .opt-days { font-size: 12px; font-weight: 700; margin-left: auto; }
 .opt-cv-label { font-size: 9px; color: #9e9e9e; text-transform: uppercase; letter-spacing: 0.3px; }
