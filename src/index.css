@@ -671,16 +671,17 @@ button, a.btn-primary, a.btn-ghost, a.btn-success, a.btn-danger, a.btn-warning, 
 
 /* Option Row 3 */
 .option-row3 {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 14px;
+  row-gap: 4px;
   padding: 6px 12px 8px;
   font-size: 11px;
   color: #9e9e9e;
+  align-items: center;
 }
-.opt-r3-dates { display: flex; gap: 14px; }
-.opt-imported-tag { font-size: 10px; color: #bdbdbd; font-style: italic; margin-top: 3px; }
-.opt-r3-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
+.opt-imported-tag { font-size: 10px; color: #bdbdbd; font-style: italic; }
+.opt-r3-actions { display: flex; align-items: center; justify-content: space-between; }
 .opt-r3-btns { display: flex; gap: 4px; padding-left: 28px; }
 .opt-r3-cv { display: flex; flex-direction: column; align-items: center; }
 .opt-days { font-size: 12px; font-weight: 700; margin-left: auto; }
