@@ -10,6 +10,7 @@ interface Props { accountId: string; onHistory: () => void; }
 interface ImportRow {
   symbol: string;
   shares: number;
+  total_cost: number;
   avg_cost: number;
   date_bought: string;
   date_sold?: string;
@@ -37,15 +38,16 @@ function parseCsvImport(text: string): ImportRow[] {
 
     const symbol = cols[0].toUpperCase().trim();
     const shares = parseFloat(cols[1]);
-    const avg_cost = parseFloat((cols[2] ?? '').replace(/[$\s]/g, ''));
+    const total_cost = parseFloat((cols[2] ?? '').replace(/[$\s]/g, ''));
+    const avg_cost = total_cost / shares;
     const date_bought = parseImportDate(cols[3] ?? '');
     const date_sold = cols[4]?.trim() ? parseImportDate(cols[4]) : undefined;
     const sell_price = cols[5]?.trim() ? parseFloat((cols[5]).replace(/[$\s]/g, '')) : undefined;
     const notes = cols[6]?.trim() || undefined;
 
-    if (!symbol || isNaN(shares) || shares <= 0 || isNaN(avg_cost)) continue;
+    if (!symbol || isNaN(shares) || shares <= 0 || isNaN(total_cost)) continue;
 
-    rows.push({ symbol, shares, avg_cost, date_bought, date_sold, sell_price, notes });
+    rows.push({ symbol, shares, total_cost, avg_cost, date_bought, date_sold, sell_price, notes });
   }
   return rows;
 }
@@ -97,8 +99,6 @@ export default function Holdings({ accountId, onHistory }: Props) {
 
   const handleConfirmImport = () => {
     const items = importRows.map(r => {
-      const totalInvested = r.avg_cost * r.shares;
-
       if (r.date_sold) {
         const exitPrice = r.sell_price ?? r.avg_cost;
         return {
@@ -124,7 +124,7 @@ export default function Holdings({ accountId, onHistory }: Props) {
           symbol: r.symbol,
           shares_owned: r.shares,
           avg_cost_per_share: r.avg_cost,
-          total_invested: totalInvested,
+          total_invested: r.total_cost,
           date_bought: r.date_bought,
           notes: r.notes,
         },
@@ -253,12 +253,13 @@ export default function Holdings({ accountId, onHistory }: Props) {
                       <>
                         <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Open Holdings ({openRows.length})</div>
                         <table className="import-table">
-                          <thead><tr><th>Ticker</th><th>Shares</th><th>Avg Cost</th><th>Bought</th><th>Notes</th></tr></thead>
+                          <thead><tr><th>Ticker</th><th>Shares</th><th>Total Cost</th><th>Avg/Share</th><th>Bought</th><th>Notes</th></tr></thead>
                           <tbody>
                             {openRows.map((r, i) => (
                               <tr key={i}>
                                 <td>{r.symbol}</td>
                                 <td>{r.shares}</td>
+                                <td>{formatCurrency(r.total_cost)}</td>
                                 <td>{formatCurrency(r.avg_cost)}</td>
                                 <td>{r.date_bought}</td>
                                 <td>{r.notes ?? '—'}</td>

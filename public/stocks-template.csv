@@ -4,6 +4,6 @@ Leave Date Sold and Sell Price blank for open positions — they will be added t
 Fill in Date Sold and Sell Price for closed trades — they will be added to your History.,,,,,,,
 Use MM/DD/YYYY format for all dates.,,,,,,,
 ,,,,,,,
-Ticker,Shares,Avg Cost/Share,Date Bought,Date Sold,Sell Price,Notes
-AAPL,10,172.50,01/15/2024,,,Example open position
-MSFT,5,380.00,03/22/2023,11/01/2023,420.00,Example closed trade
+Ticker,Shares,Total Cost Basis,Date Bought,Date Sold,Sell Price,Notes
+AAPL,10,1725.00,01/15/2024,,,Example open position
+MSFT,5,1900.00,03/22/2023,11/01/2023,2100.00,Example closed trade
