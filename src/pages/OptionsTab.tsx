@@ -268,6 +268,7 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                 <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
                   Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
                 </span>
+                <span className="opt-cv-label" style={{ marginLeft: 'auto' }}>Current Value</span>
               </div>
               <div className="opt-r3-bottom">
                 <span className="opt-r3-note">
@@ -278,12 +279,9 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                   <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
                   <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
                 </div>
-                <div className="opt-r3-cv">
-                  <span className="opt-cv-label">Current Value</span>
-                  <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
-                    {currentValue !== null ? formatCurrency(currentValue) : '—'}
-                  </span>
-                </div>
+                <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`} style={{ marginLeft: 24 }}>
+                  {currentValue !== null ? formatCurrency(currentValue) : '—'}
+                </span>
               </div>
             </div>
           </div>
