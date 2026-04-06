@@ -240,7 +240,7 @@ export default function Holdings({ accountId, onHistory }: Props) {
 
                 <input
                   type="file"
-                  accept=".csv"
+                  accept=".csv,text/csv,text/plain"
                   onChange={handleFileChange}
                   style={{ marginBottom: 12, display: 'block', fontSize: 14 }}
                 />
