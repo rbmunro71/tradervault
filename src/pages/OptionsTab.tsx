@@ -270,10 +270,9 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                 </span>
               </div>
               <div className="opt-r3-bottom">
-                <div className="opt-r3-note">
-                  {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
-                  {customNote && <span className="holding-notes">{customNote}</span>}
-                </div>
+                <span className="opt-r3-note">
+                  {isImported ? 'Imported via CSV' : customNote ?? ''}
+                </span>
                 <div className="opt-r3-btns">
                   <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
                   <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
