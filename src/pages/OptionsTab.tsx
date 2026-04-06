@@ -211,10 +211,38 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
       {options.map(opt => {
         const days = getDaysToExp(opt.expiration_date);
         const isExpired = days < 0;
-        const isExpiringSoon = days >= 0 && days <= 7;
+        const isExpiringSoon = days >= 0 && days <= 9;
         const currentPrice = prices[opt.symbol]?.price;
-        const contractTotal = opt.contracts * 100;
+        const contractObligation = opt.strike_price > 0 ? opt.strike_price * opt.contracts * 100 : null;
         const totalPremium = opt.contracts * 100 * opt.premium_paid;
+
+        const daysColor = days <= 9 ? '#f44336' : days <= 17 ? '#ff9800' : days <= 25 ? '#c9a800' : '#4caf50';
+
+        // Current value of the position based on live price vs strike
+        let currentValue: number | null = null;
+        if (currentPrice && opt.strike_price > 0) {
+          const p = opt.premium_paid * opt.contracts * 100;
+          if (opt.direction === 'SELL' && opt.option_type === 'PUT') {
+            currentValue = currentPrice < opt.strike_price
+              ? p - (opt.strike_price - currentPrice) * opt.contracts * 100
+              : p;
+          } else if (opt.direction === 'BUY' && opt.option_type === 'PUT') {
+            currentValue = currentPrice < opt.strike_price
+              ? (opt.strike_price - currentPrice) * opt.contracts * 100
+              : p;
+          } else if (opt.direction === 'SELL' && opt.option_type === 'CALL') {
+            currentValue = currentPrice > opt.strike_price
+              ? p - (currentPrice - opt.strike_price) * opt.contracts * 100
+              : p;
+          } else if (opt.direction === 'BUY' && opt.option_type === 'CALL') {
+            currentValue = currentPrice > opt.strike_price
+              ? (currentPrice - opt.strike_price) * opt.contracts * 100
+              : p;
+          }
+        }
+
+        const isImported = opt.notes?.startsWith('Imported via CSV');
+        const customNote = opt.notes && !isImported ? opt.notes : null;
 
         return (
           <div key={opt.id} className={`option-card ${isExpired ? 'card-expired' : isExpiringSoon ? 'card-warning' : ''}`}>
@@ -226,23 +254,33 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
               <span className="opt-field-val">{currentPrice ? formatCurrency(currentPrice) : '—'}</span>
               <span className="opt-field-label">Strike</span>
               <span className="opt-field-val opt-strike">{opt.strike_price > 0 ? formatCurrency(opt.strike_price) : '—'}</span>
+              <span className="opt-days" style={{ color: daysColor }}>{days}d</span>
             </div>
             <div className="option-row2">
-              <div className="ostat"><span className="ostat-label">Contracts</span><span className="ostat-val">{opt.contracts}</span></div>
-              <div className="ostat"><span className="ostat-label">Premium/Share</span><span className="ostat-val">{formatCurrency(opt.premium_paid)}</span></div>
-              <div className="ostat"><span className="ostat-label">Contract Total</span><span className="ostat-val">{contractTotal} shares</span></div>
-              <div className="ostat"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
+              <div className="ostat ostat-left"><span className="ostat-label">Contracts</span><span className="ostat-val">{opt.contracts}</span></div>
+              <div className="ostat ostat-left"><span className="ostat-label">Premium/Share</span><span className="ostat-val">{formatCurrency(opt.premium_paid)}</span></div>
+              <div className="ostat ostat-right"><span className="ostat-label">Contract Obligation</span><span className="ostat-val">{contractObligation !== null ? formatCurrency(contractObligation) : '—'}</span></div>
+              <div className="ostat ostat-right"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
             </div>
             <div className="option-row3">
-              <span>Opened: {opt.date_opened}</span>
-              <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
-                Exp: {opt.expiration_date}{!isExpired && ` (${days}d)`}{isExpired && ' (EXPIRED)'}
-              </span>
-              {opt.notes && <span className="holding-notes">{opt.notes}</span>}
-              <div className="holding-actions">
+              <div className="opt-r3-left">
+                <span>Opened: {opt.date_opened}</span>
+                <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
+                  Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
+                </span>
+                {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
+                {customNote && <span className="holding-notes">{customNote}</span>}
+              </div>
+              <div className="opt-r3-center">
                 <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
                 <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
                 <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
+              </div>
+              <div className="opt-r3-right">
+                <span className="opt-cv-label">Current Value</span>
+                <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
+                  {currentValue !== null ? formatCurrency(currentValue) : '—'}
+                </span>
               </div>
             </div>
           </div>
