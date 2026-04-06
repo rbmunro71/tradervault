@@ -71,10 +71,14 @@ export interface TickerMapping {
   manualPrice?: number;
 }
 
+export type ApiServiceId = 'alphavantage' | 'polygon' | 'finnhub' | 'iex';
+
 export interface SheetConfig {
   url: string;
   mappings: TickerMapping[];
-  apiService?: 'alphavantage' | 'polygon' | 'finnhub' | 'iex';
+  apiKeys?: Partial<Record<ApiServiceId, string>>;
+  // legacy — kept for migration only
+  apiService?: ApiServiceId;
   apiKey?: string;
 }
 

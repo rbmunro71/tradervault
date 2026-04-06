@@ -497,31 +497,32 @@ button, a.btn-primary, a.btn-ghost, a.btn-success, a.btn-danger, a.btn-warning, 
 .import-table td { padding: 4px 6px; border-bottom: 1px solid #f5f5f5; }
 .import-table tr:last-child td { border-bottom: none; }
 
-/* ── Service picker ── */
-.service-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* ── Service rows ── */
+.service-rows { display: flex; flex-direction: column; gap: 10px; }
+.service-row {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
-.service-btn {
-  padding: 10px 8px;
+.service-row-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1976d2;
+  white-space: nowrap;
+  min-width: 100px;
+  text-decoration: none;
+}
+.service-row-label:hover { text-decoration: underline; }
+.service-row-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
   border: 1.5px solid #e0e0e0;
   border-radius: 8px;
-  background: #fff;
   font-size: 13px;
-  font-weight: 500;
-  color: #424242;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-  text-align: center;
+  background: #fff;
 }
-.service-btn:hover { border-color: #1976d2; color: #1976d2; }
-.service-btn-active {
-  border-color: #1976d2;
-  background: #e3f2fd;
-  color: #1976d2;
-  font-weight: 700;
-}
+.service-row-input:focus { border-color: #1976d2; outline: none; }
 
 /* ========== Auth Page ========== */
 .auth-page { min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; background: #f5f5f5; }
