@@ -290,11 +290,6 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
 
                 {importRows.length > 0 && (
                   <>
-                    <div style={{ fontSize: 12, color: '#f57c00', marginBottom: 12, lineHeight: 1.5 }}>
-                      Note: Strike price is not in the CSV and will be set to 0. Edit each position after importing to add the correct strike.
-                      Closed options with close date = expiration date are assumed to have expired worthless (P&L = full premium kept).
-                    </div>
-
                     {openRows.length > 0 && (
                       <>
                         <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Open Positions ({openRows.length})</div>
@@ -365,9 +360,6 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
                 <h3>Import Complete</h3>
                 <p style={{ margin: '12px 0' }}>
                   {openRows.length} open position{openRows.length !== 1 ? 's' : ''} and {closedRows.length} history record{closedRows.length !== 1 ? 's' : ''} imported successfully.
-                </p>
-                <p style={{ fontSize: 13, color: '#757575', marginBottom: 16 }}>
-                  Tap Edit on any imported position to add the correct strike price.
                 </p>
                 <button className="btn-primary btn-full" onClick={closeImportModal}>Done</button>
               </>
