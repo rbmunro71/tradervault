@@ -257,30 +257,30 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
               <span className="opt-days" style={{ color: daysColor }}>{days}d</span>
             </div>
             <div className="option-row2">
-              <div className="ostat ostat-left"><span className="ostat-label">Contracts</span><span className="ostat-val">{opt.contracts}</span></div>
-              <div className="ostat ostat-left"><span className="ostat-label">Premium/Share</span><span className="ostat-val">{formatCurrency(opt.premium_paid)}</span></div>
-              <div className="ostat ostat-right"><span className="ostat-label">Contract Obligation</span><span className="ostat-val">{contractObligation !== null ? formatCurrency(contractObligation) : '—'}</span></div>
-              <div className="ostat ostat-right"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
+              <div className="ostat"><span className="ostat-label">Contracts</span><span className="ostat-val">{opt.contracts}</span></div>
+              <div className="ostat ostat-nudge"><span className="ostat-label">Premium/Share</span><span className="ostat-val">{formatCurrency(opt.premium_paid)}</span></div>
+              <div className="ostat ostat-nudge"><span className="ostat-label ostat-label-sm">Contract Obligation</span><span className="ostat-val">{contractObligation !== null ? formatCurrency(contractObligation) : '—'}</span></div>
+              <div className="ostat"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
             </div>
             <div className="option-row3">
-              <div className="opt-r3-left">
-                <span>Opened: {opt.date_opened}</span>
-                <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
-                  Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
-                </span>
-                {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
-                {customNote && <span className="holding-notes">{customNote}</span>}
-              </div>
-              <div className="opt-r3-center">
-                <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
-                <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
-                <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
-              </div>
-              <div className="opt-r3-right">
-                <span className="opt-cv-label">Current Value</span>
-                <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
-                  {currentValue !== null ? formatCurrency(currentValue) : '—'}
-                </span>
+              <span>Opened: {opt.date_opened}</span>
+              <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
+                Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
+              </span>
+              {isImported && <span className="opt-imported-tag">Imported via CSV</span>}
+              {customNote && <span className="holding-notes">{customNote}</span>}
+              <div className="opt-r3-actions">
+                <div className="opt-r3-btns">
+                  <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
+                  <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
+                  <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
+                </div>
+                <div className="opt-r3-cv">
+                  <span className="opt-cv-label">Current Value</span>
+                  <span className={`opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
+                    {currentValue !== null ? formatCurrency(currentValue) : '—'}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
