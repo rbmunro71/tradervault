@@ -7,6 +7,7 @@ import AddStock from './pages/AddStock';
 import AddOption from './pages/AddOption';
 import ROICalculator from './pages/ROICalculator';
 import Tickers from './pages/Tickers';
+import ReadMe from './pages/ReadMe';
 import './index.css';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/:accountId/edit-option/:optionId" element={<AddOption />} />
             <Route path="/roi" element={<ROICalculator />} />
             <Route path="/tickers" element={<Tickers />} />
+            <Route path="/readme" element={<ReadMe />} />
           </Routes>
         </div>
         <nav className="bottom-nav">
@@ -41,6 +43,10 @@ export default function App() {
           <NavLink to="/roi" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">🧮</span>
             <span>ROI</span>
+          </NavLink>
+          <NavLink to="/readme" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+            <span className="nav-icon">📖</span>
+            <span>Read Me</span>
           </NavLink>
         </nav>
       </div>

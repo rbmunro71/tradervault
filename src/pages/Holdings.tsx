@@ -88,6 +88,7 @@ export default function Holdings({ accountId, onHistory }: Props) {
   const [importRows, setImportRows] = useState<ImportRow[]>([]);
   const [importParseError, setImportParseError] = useState('');
   const [importDone, setImportDone] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const openRows = importRows.filter(r => !r.date_sold);
   const closedRows = importRows.filter(r => !!r.date_sold);
@@ -243,6 +244,19 @@ export default function Holdings({ accountId, onHistory }: Props) {
               <>
                 <h3>Import Stocks from CSV</h3>
                 <p style={{ marginBottom: 10 }}>Upload your stocks template CSV. Rows with a sell date go to history; rows without go to open holdings.</p>
+
+                <button
+                  className="btn-ghost btn-sm"
+                  style={{ marginBottom: 10, fontSize: 12 }}
+                  onClick={() => setShowInstructions(v => !v)}
+                >
+                  {showInstructions ? '▲ Hide Instructions' : '▼ Instructions'}
+                </button>
+                {showInstructions && (
+                  <div style={{ fontSize: 12, lineHeight: 1.6, background: '#f5f5f5', borderRadius: 6, padding: '10px 12px', marginBottom: 12 }}>
+                    <strong>Before importing, remove commas from numbers.</strong> Values like <code>$70,000.00</code> will break column alignment. Format cells as plain Number (no 1000 separator) in Excel, or use a custom format of <code>0.00</code> in Google Sheets. Re-save as .csv after reformatting.
+                  </div>
+                )}
 
                 <a
                   href={`${import.meta.env.BASE_URL}stocks-template.csv`}
