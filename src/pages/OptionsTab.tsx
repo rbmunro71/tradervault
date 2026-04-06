@@ -240,7 +240,15 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
             {!importDone ? (
               <>
                 <h3>Import Options from CSV</h3>
-                <p style={{ marginBottom: 14 }}>Upload your Macros template CSV file. Rows with a close date go to history; rows without go to open positions.</p>
+                <p style={{ marginBottom: 10 }}>Upload your Macros template CSV file. Rows with a close date go to history; rows without go to open positions.</p>
+
+                <a
+                  href={`${import.meta.env.BASE_URL}options-template.csv`}
+                  download="options-template.csv"
+                  style={{ display: 'inline-block', fontSize: 13, marginBottom: 14, color: '#1976d2' }}
+                >
+                  Download template CSV
+                </a>
 
                 <input
                   type="file"
