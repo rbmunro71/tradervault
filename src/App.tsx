@@ -15,7 +15,7 @@ export default function App() {
   if (!entered) return <Landing onEnter={() => setEntered(true)} />;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/tradervault">
       <div className="app">
         <div className="content">
           <Routes>
