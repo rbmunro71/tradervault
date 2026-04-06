@@ -263,23 +263,27 @@ export default function OptionsTab({ accountId, onHistory }: Props) {
               <div className="ostat"><span className="ostat-label">Total Premium</span><span className="ostat-val">{formatCurrency(totalPremium)}</span></div>
             </div>
             <div className="option-row3">
-              <div className="opt-r3-dates">
-                <span>Opened: {opt.date_opened}</span>
-                <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
-                  Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
-                </span>
-                <span className="opt-cv-label" style={{ marginLeft: 'auto' }}>Current Value</span>
-              </div>
-              <div className="opt-r3-bottom">
-                <span className="opt-r3-note">
-                  {isImported ? 'Imported via CSV' : customNote ?? ''}
-                </span>
-                <div className="opt-r3-btns">
-                  <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
-                  <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
-                  <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
+              <div className="opt-r3-main">
+                <div className="opt-r3-dates">
+                  <span>Opened: {opt.date_opened}</span>
+                  <span className={isExpired ? 'red' : isExpiringSoon ? 'orange' : ''}>
+                    Exp: {opt.expiration_date}{isExpired && ' (EXPIRED)'}
+                  </span>
                 </div>
-                <span className={`opt-r3-val opt-cv-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
+                <div className="opt-r3-bottom">
+                  <span className="opt-r3-note">
+                    {isImported ? 'Imported via CSV' : customNote ?? ''}
+                  </span>
+                  <div className="opt-r3-btns">
+                    <button className="hbtn hbtn-close" onClick={() => openCloseModal(opt)}>Close</button>
+                    <button className="hbtn hbtn-edit" onClick={() => navigate(`/${accountId}/edit-option/${opt.id}`)}>Edit</button>
+                    <button className="hbtn hbtn-del" onClick={() => setDeleteConfirm(opt)}>Delete</button>
+                  </div>
+                </div>
+              </div>
+              <div className="ostat opt-r3-cv">
+                <span className="ostat-label">Current Value</span>
+                <span className={`ostat-val ${currentValue === null ? '' : currentValue >= totalPremium ? 'green' : 'red'}`}>
                   {currentValue !== null ? formatCurrency(currentValue) : '—'}
                 </span>
               </div>
