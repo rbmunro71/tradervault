@@ -1,23 +1,16 @@
-This is where you put your Current Options Records to Upload them to TradeVault.,,,,,,,
+This is where you put your Options Contracts to upload them to TraderVault.,,,,,,,
 ,,,,,,,
-Make sure to enter Buy or Sell and Put or Call for proper recording.,,,,,,,
-"If there is no Close Date, it will be recorded as an open contract.",,,,,,,
-"If you originally recorded the Open Entry and Close Entry separately, you need to combine them here.",,,,,,,
-"Only enter the Per Contract Broker Fee, the Open and Closed Contacts will be tallied up for the total.",,,,,,,
-"If you previously recorded your Options Trades with only some of them closed, separate open and closed contracts here.",,,,,,,
-Start on Row 15,,,,,,,
+IMPORTANT NOTES:,,,,,,,
+- Direction must be BUY or SELL.,,,,,,,
+- Type must be CALL or PUT.,,,,,,,
+- Premium/Share is the per-share premium (not per contract). One contract = 100 shares.,,,,,,,
+- Leave Close Date blank for open contracts — they will be added to your current positions.,,,,,,,
+- Fill in Close Date for expired or closed contracts — they will be added to your History.,,,,,,,
+- If you recorded open and close entries separately combine them into one row here.,,,,,,,
+- Use MM/DD/YYYY format for all dates.,,,,,,,
 ,,,,,,,
-Option Contracts Holdings,,,,,,,
 Ticker,# of Contracts,Buy/Sell,Put/Call,Premium/Share,Date Opened,Exp. Date,Close Date
-,,,,,,,
-,,,,,,,
-,,,,,,,
-CRWV,5,sell,put,$4.75,2/2/26,4/17/2026,
-APLD,5,sell,put,$2.15,2/3/26,4/17/2026,
-CRWV,5,sell,put,$5.25,2/3/26,4/17/2026,
-CRWV,5,sell,put,$10.05,2/4/26,4/17/2026,
-Nvda ,1,sell,put,$1.35,12/18/24,1/10/2025,1/10/25
-UAA,4,sell,put,$0.25,1/7/25,1/17/2025,1/17/25
-UAA,1,sell,call,$0.22,1/7/25,1/17/2025,1/17/25
-Oxy,1,sell,put,$0.81,12/16/24,1/24/2025,1/24/25
-Oxy,1,sell,put,$0.91,12/16/24,1/24/2025,1/24/25
+AAPL,2,SELL,PUT,$3.50,01/15/2025,03/21/2025,
+TSLA,1,BUY,CALL,$5.20,02/01/2025,04/17/2025,
+MSFT,3,SELL,CALL,$2.10,11/05/2024,01/17/2025,01/17/2025
+NVDA,2,SELL,PUT,$4.75,12/10/2024,02/21/2025,02/21/2025
