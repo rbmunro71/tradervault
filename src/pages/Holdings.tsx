@@ -26,6 +26,20 @@ function parseImportDate(d: string): string {
   return `${year}-${m.padStart(2, '0')}-${day.padStart(2, '0')}`;
 }
 
+function splitCsvLine(line: string): string[] {
+  const cols: string[] = [];
+  let cur = '';
+  let inQuote = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { inQuote = !inQuote; }
+    else if (ch === ',' && !inQuote) { cols.push(cur.trim()); cur = ''; }
+    else { cur += ch; }
+  }
+  cols.push(cur.trim());
+  return cols;
+}
+
 function parseCsvImport(text: string): ImportRow[] {
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
   const headerIdx = lines.findIndex(l => /^ticker/i.test(l));
@@ -33,7 +47,7 @@ function parseCsvImport(text: string): ImportRow[] {
 
   const rows: ImportRow[] = [];
   for (let i = headerIdx + 1; i < lines.length; i++) {
-    const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+    const cols = splitCsvLine(lines[i]);
     if (!cols[0]) continue;
 
     const symbol = cols[0].toUpperCase().trim();
